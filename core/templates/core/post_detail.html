@@ -1,0 +1,25 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{{ post.title }}
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h1>{{ post.title }}</h1>
+
+    <p class="meta">
+        Fecha de publicación: {{ post.published_date }} | Autor: {{ post.author }}
+    </p>
+
+    <p>{{ post.content }}</p>
+
+    <div class="acciones">
+        <a class="editar" href="{% url 'core:post_update' post.pk %}">Editar</a>
+        <a class="eliminar" href="{% url 'core:post_delete' post.pk %}">Eliminar</a>
+        <a class="volver" href="{% url 'core:post_list' %}">Volver a la lista</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+{% if object %}Editar publicación{% else %}Nueva publicación{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h1>{% if object %}Editar publicación{% else %}Nueva publicación{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="acciones">
+            <button type="submit" class="editar">Guardar</button>
+            <a class="volver" href="{% url 'core:post_list' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

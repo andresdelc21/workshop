@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Eliminar publicación
+{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h1>Eliminar publicación</h1>
+
+    <div class="advertencia">
+        ⚠️ Esta acción no se puede deshacer.
+    </div>
+
+    <p>¿Estás seguro de que querés eliminar esta publicación?</p>
+
+    <h2>{{ post.title }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="acciones">
+            <button type="submit" class="eliminar">Sí, eliminar</button>
+            <a class="volver" href="{% url 'core:post_list' %}">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

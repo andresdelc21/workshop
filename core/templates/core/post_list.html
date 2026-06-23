@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+Listado de Posts
+{% endblock %}
+
+{% block content %}
+
+<h1>Lista de publicaciones</h1>
+
+{% for post in posts %}
+
+<div class="card">
+
+    <h2>
+        <a href="{% url 'core:post_detail' post.pk %}">
+            {{ post.title|upper }}
+        </a>
+    </h2>
+
+    <p>{{ post.content|truncatewords:20 }}</p>
+
+    <p class="meta">Fecha: {{ post.published_date }}</p>
+    <p class="meta">Autor: {{ post.author }}</p>
+
+    <div class="acciones">
+        <a class="editar" href="{% url 'core:post_update' post.pk %}">Editar</a>
+        <a class="eliminar" href="{% url 'core:post_delete' post.pk %}">Eliminar</a>
+    </div>
+
+</div>
+
+{% empty %}
+
+<p>No hay publicaciones disponibles.</p>
+
+{% endfor %}
+
+{% endblock %}
