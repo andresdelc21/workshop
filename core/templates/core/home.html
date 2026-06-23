@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load component_tags %}
+
+{% block title %}Inicio - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Bienvenido a la pagina principal</h2>
+    <p>Este contenido usa una plantilla base, includes e inclusion tags reutilizables.</p>
+</div>
+
+{% alert_box 'Componentes reutilizables cargados correctamente.' 'info' %}
+
+{% summary_cards %}
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+{% load custom_tags %}
+
+{% block title %}Lista de usuarios - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>{% saludo_personalizado request.user %}</h1>
+
+    <form method="get">
+        {{ form.q }}
+        <button type="submit" class="editar">Buscar</button>
+    </form>
+
+    {% if query %}
+        <p>Resultados para: <strong>{{ query }}</strong></p>
+    {% endif %}
+
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario|nombre_completo_mayus }} - {{ usuario.email }}</li>
+        {% empty %}
+            <li>No se encontraron usuarios.</li>
+        {% endfor %}
+    </ul>
+
+    <p>Grupo actual: {{ grupo_usuario|default:'Sin grupo' }}</p>
+</div>
+{% endblock %}

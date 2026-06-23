@@ -1,0 +1,7 @@
+<section class="summary-grid">
+    {% for card in cards %}
+        {% include 'custom_tags/components/summary_card.html' with title=card.title description=card.description url=card.url only %}
+    {% empty %}
+        <p>No hay tarjetas resumen disponibles.</p>
+    {% endfor %}
+</section>

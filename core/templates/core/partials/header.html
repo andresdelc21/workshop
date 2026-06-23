@@ -1,0 +1,17 @@
+{% load saludos navigation_tags %}
+<header class="site-header">
+    <h1>{{ site_config.site_name }}</h1>
+    <p>{% saludo %}, visitante!</p>
+    <nav aria-label="Navegacion principal">
+        {% render_nav_menu %}
+    </nav>
+
+    {% if site_config.show_search %}
+    <p class="grupo-usuario">Grupo actual: {{ grupo_usuario|default:'Sin grupo' }}</p>
+
+    <form method="get" action="{% url 'core:products' %}" class="search-form">
+        <input type="text" name="q" placeholder="Buscar productos...">
+        <button type="submit">Buscar</button>
+    </form>
+    {% endif %}
+</header>

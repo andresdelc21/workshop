@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'custom_tags',
 ]
 
 MIDDLEWARE = [
@@ -59,12 +60,24 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'custom_tags.context_processors.nombre_sitio',
+                'custom_tags.context_processors.grupo_usuario',
+                'core.context_processors.global_context',
+                'core.context_processors.navigation_context',
+                'core.context_processors.admin_version',
             ],
             'libraries': {
                 'post_filters': 'core.templatetags.post_filters',
+                'saludos': 'core.templatetags.saludos',
+                'custom_filters': 'custom_tags.templatetags.custom_filters',
+                'user_custom_tags': 'custom_tags.templatetags.custom_tags',
+                'component_tags': 'custom_tags.templatetags.component_tags',
+                'navigation_tags': 'custom_tags.templatetags.navigation_tags',
+                'admin_book_tags': 'core.templatetags.admin_book_tags',
             },
         },
     },
@@ -118,4 +131,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'core.admin': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}

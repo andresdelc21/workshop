@@ -1,0 +1,7 @@
+{% extends "admin/change_form.html" %}
+
+{% block content %}
+  <h2>Edicion personalizada de autor</h2>
+  {% include "admin/custom_inline.html" %}
+  {{ block.super }}
+{% endblock %}

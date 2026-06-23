@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Productos - {{ site_config.site_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Productos</h2>
+    <form method="get" action="{% url 'core:products' %}">
+        {{ form.q }}
+        {{ form.category }}
+        <button type="submit" class="editar">Buscar</button>
+    </form>
+</div>
+
+<div class="card">
+    {% if query or category %}
+        <h3>Resultados filtrados</h3>
+        {% if query %}<p>Nombre: <strong>{{ query }}</strong></p>{% endif %}
+        {% if category %}<p>Categoria: <strong>{{ category }}</strong></p>{% endif %}
+    {% else %}
+        <h3>Listado de productos</h3>
+    {% endif %}
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>
+                    <strong>{{ product.name }}</strong>
+                    <p>{{ product.category }} - ${{ product.price }}</p>
+                    <p>{{ product.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No se encontraron productos.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% load admin_book_tags %}
+
+{% if original %}
+  <div class="module aligned">
+    <h2>Resumen de libros relacionados</h2>
+    {% for libro in original.libros.all %}
+      {% libro_summary libro %}
+    {% empty %}
+      <p>Este autor todavia no tiene libros cargados.</p>
+    {% endfor %}
+  </div>
+{% endif %}

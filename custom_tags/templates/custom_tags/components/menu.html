@@ -1,0 +1,9 @@
+<nav aria-label="Menu reutilizable">
+    <ul class="menu-dinamico">
+        {% for item in menu_items %}
+            <li><a href="{{ item.url }}">{{ item.name }}</a></li>
+        {% empty %}
+            <li>No hay elementos en el menu</li>
+        {% endfor %}
+    </ul>
+</nav>
