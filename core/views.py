@@ -1,8 +1,25 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView, FormView
 from django.urls import reverse, reverse_lazy
 from .models import Post, Product
-from .forms import ContactoForm, ProductSearchForm
+from .forms import ContactoForm, ProductSearchForm, RegistroUsuarioForm
+
+
+class RegistroView(FormView):
+    template_name = 'registration/registro.html'
+    form_class = RegistroUsuarioForm
+    success_url = reverse_lazy('core:perfil')
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return super().form_valid(form)
+
+
+class PerfilView(LoginRequiredMixin, TemplateView):
+    template_name = 'registration/perfil.html'
 
 
 class HomeView(TemplateView):

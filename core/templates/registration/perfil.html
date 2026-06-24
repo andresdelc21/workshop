@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Perfil - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Perfil de usuario</h1>
+    <p><strong>Usuario:</strong> {{ request.user.username }}</p>
+    <p><strong>Nombre:</strong> {{ request.user.first_name }} {{ request.user.last_name }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+    <p><strong>Grupo:</strong> {{ grupo_usuario|default:'Sin grupo' }}</p>
+</div>
+{% endblock %}

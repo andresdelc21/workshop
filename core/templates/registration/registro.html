@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Registro - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Registro de usuario</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="editar">Crear cuenta</button>
+    </form>
+</div>
+{% endblock %}

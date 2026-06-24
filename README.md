@@ -13,6 +13,7 @@ Aplicacion Django integradora para practicar templates reutilizables, busquedas 
 - Admin personalizado con `list_display`, `list_filter`, `search_fields`, inlines y acciones masivas.
 - Grupos y permisos: `Moderadores` y `Editores`.
 - Vista protegida de usuarios con permiso `auth.view_user`.
+- Registro y perfil de usuario con login/logout de Django.
 
 ## Instalacion
 
@@ -48,6 +49,9 @@ URLs utiles:
 - Productos: `http://127.0.0.1:8000/products/`
 - Publicaciones: `http://127.0.0.1:8000/`
 - Contacto: `http://127.0.0.1:8000/contacto/`
+- Registro: `http://127.0.0.1:8000/registro/`
+- Login: `http://127.0.0.1:8000/accounts/login/`
+- Perfil: `http://127.0.0.1:8000/perfil/`
 - Usuarios protegidos: `http://127.0.0.1:8000/usuarios/lista/`
 - Admin: `http://127.0.0.1:8000/admin/`
 
@@ -74,3 +78,27 @@ Modelos principales registrados:
 - `Post`, `Tag`, `SummaryCard`.
 
 La accion `activar_productos` valida permisos, evita reactivar productos ya activos, muestra mensajes con `message_user` y registra auditoria por logging.
+
+
+## Despliegue
+
+El proyecto incluye configuracion basica para despliegue:
+
+- `ALLOWED_HOSTS` permite localhost y dominios temporales de Ngrok.
+- `STATIC_ROOT` esta configurado para `collectstatic`.
+- `MEDIA_URL` y `MEDIA_ROOT` estan definidos para archivos subidos.
+
+Comando recomendado antes de desplegar:
+
+```powershell
+python manage.py collectstatic
+```
+
+Para una demostracion rapida se puede exponer el servidor local con Ngrok:
+
+```powershell
+python manage.py runserver
+ngrok http 8000
+```
+
+Luego se comparte la URL publica generada por Ngrok.

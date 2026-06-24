@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from .models import Product
 
@@ -45,3 +47,14 @@ class ProductForm(forms.ModelForm):
 class ProductSearchForm(forms.Form):
     q = forms.CharField(label='Buscar producto', required=False)
     category = forms.CharField(label='Categoria', required=False)
+
+
+
+class RegistroUsuarioForm(UserCreationForm):
+    email = forms.EmailField(label='Correo electronico', required=True)
+    first_name = forms.CharField(label='Nombre', required=False)
+    last_name = forms.CharField(label='Apellido', required=False)
+
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
