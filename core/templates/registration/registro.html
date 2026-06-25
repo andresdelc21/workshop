@@ -1,14 +1,27 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Registro - {{ site_name }}{% endblock %}
+{% block title %}Registro - Mi Sitio Django{% endblock %}
+{% block body_class %}auth-page{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h1>Registro de usuario</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="editar">Crear cuenta</button>
-    </form>
-</div>
+<section class="auth-panel">
+    <div class="auth-card">
+        <p class="auth-kicker">Mi Sitio Django</p>
+        <h1>Crear cuenta</h1>
+        <p class="auth-copy">Registrate para guardar tu perfil y acceder a las funcionalidades del proyecto.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="auth-submit">Crear cuenta</button>
+        </form>
+
+        <div class="auth-actions">
+            <a href="{% url 'login' %}">Ya tengo cuenta</a>
+            <a href="{% url 'core:home' %}">Volver al inicio</a>
+        </div>
+    </div>
+</section>
 {% endblock %}

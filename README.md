@@ -1,37 +1,71 @@
 # Workshop Django
 
-Aplicacion Django integradora para practicar templates reutilizables, busquedas dinamicas, admin personalizado, usuarios, grupos y permisos.
+Proyecto final integrador desarrollado con Django. La aplicacion permite trabajar con publicaciones, productos, formularios, usuarios, permisos y un panel de administracion personalizado.
 
 ## Funcionalidades principales
 
-- Herencia de templates con `core/base.html`, bloques, includes y partials.
-- Context processors para nombre del sitio, navegacion, grupo del usuario y version del admin.
-- Template tags, filtros e inclusion tags reutilizables.
-- CRUD de publicaciones con class based views.
-- Busqueda dinamica de productos con formulario GET y filtros ORM `icontains`.
-- Formulario de contacto con validacion `clean_email`.
-- Admin personalizado con `list_display`, `list_filter`, `search_fields`, inlines y acciones masivas.
-- Grupos y permisos: `Moderadores` y `Editores`.
-- Vista protegida de usuarios con permiso `auth.view_user`.
-- Registro y perfil de usuario con login/logout de Django.
+- Herencia de templates con `core/base.html`, bloques reutilizables, includes y partials.
+- CRUD completo de publicaciones con Class Based Views.
+- Formularios con validaciones propias mediante Django Forms y ModelForms.
+- Busqueda dinamica de productos con metodo GET y filtros ORM `icontains`.
+- Registro, login, logout y perfil de usuario.
+- Control de acceso con permisos de Django.
+- Admin personalizado con `ModelAdmin`, filtros, busqueda, edicion rapida, inlines y acciones.
+- Context processors, template tags, filtros e inclusion tags reutilizables.
+- Pruebas automatizadas para formularios, busquedas y vistas protegidas.
+- Configuracion preparada para despliegue con variables de entorno, WhiteNoise y Gunicorn.
 
-## Instalacion
+## Requisitos
+
+- Python 3.12 o superior recomendado.
+- pip.
+- Git.
+
+## Instalacion y configuracion
+
+Clonar el repositorio:
 
 ```powershell
-cd C:\Users\andre\Documents\workshop
-python -m venv ..\venv
-..\venv\Scripts\activate
+git clone https://github.com/andresdelc21/workshop.git
+cd workshop
+```
+
+Crear y activar un entorno virtual:
+
+```powershell
+python -m venv venv
+venv\Scripts\activate
+```
+
+Instalar dependencias:
+
+```powershell
 pip install -r requirements.txt
 ```
 
+Crear el archivo de variables de entorno:
+
+```powershell
+copy .env.example .env
+```
+
+Para desarrollo local se puede mantener `DJANGO_DEBUG=True`. Para produccion, configurar una clave segura en `DJANGO_SECRET_KEY` y usar `DJANGO_DEBUG=False`.
+
 ## Migraciones y datos de ejemplo
+
+Aplicar migraciones:
 
 ```powershell
 python manage.py migrate
+```
+
+Cargar datos de ejemplo:
+
+```powershell
 python manage.py seed_demo
 ```
 
-Para crear un superusuario:
+Crear superusuario para ingresar al admin:
 
 ```powershell
 python manage.py createsuperuser
@@ -45,17 +79,30 @@ python manage.py runserver
 
 URLs utiles:
 
-- Inicio: `http://127.0.0.1:8000/home/`
+- Home: `http://127.0.0.1:8000/home/`
+- Publicaciones: `http://127.0.0.1:8000/posts/`
 - Productos: `http://127.0.0.1:8000/products/`
-- Publicaciones: `http://127.0.0.1:8000/`
 - Contacto: `http://127.0.0.1:8000/contacto/`
 - Registro: `http://127.0.0.1:8000/registro/`
 - Login: `http://127.0.0.1:8000/accounts/login/`
 - Perfil: `http://127.0.0.1:8000/perfil/`
-- Usuarios protegidos: `http://127.0.0.1:8000/usuarios/lista/`
+- Vista protegida de usuarios: `http://127.0.0.1:8000/usuarios/lista/`
 - Admin: `http://127.0.0.1:8000/admin/`
 
-## Pruebas
+## Como probar funcionalidades
+
+1. Ingresar a `/registro/` y crear un usuario.
+2. Iniciar sesion desde `/accounts/login/`.
+3. Acceder al perfil desde `/perfil/`.
+4. Listar publicaciones desde `/posts/`.
+5. Crear una publicacion desde `/post/nuevo/`.
+6. Editar o eliminar publicaciones desde los botones del listado.
+7. Probar busquedas en `/products/` usando nombre o categoria.
+8. Ingresar a `/admin/` con un superusuario para gestionar modelos.
+
+## Pruebas automatizadas
+
+Ejecutar:
 
 ```powershell
 python manage.py test
@@ -64,41 +111,56 @@ python manage.py test
 Las pruebas cubren:
 
 - Validacion de `ContactoForm`.
-- `ProductForm`.
+- Validacion de `ProductForm`.
 - Busqueda de productos por nombre y categoria.
-- Control de acceso a la vista protegida de usuarios.
+- Control de acceso a vistas protegidas por permisos.
 
-## Admin
+Tambien se puede verificar la configuracion general con:
+
+```powershell
+python manage.py check
+```
+
+## Admin personalizado
 
 Modelos principales registrados:
 
 - `Product`: columnas, filtros, busqueda, edicion rapida y accion `activar_productos`.
 - `MenuItem`: menu dinamico con acciones para activar/desactivar.
 - `Author` y `Libro`: edicion relacionada con `TabularInline`.
-- `Post`, `Tag`, `SummaryCard`.
+- `Post`, `Tag` y `SummaryCard`.
 
-La accion `activar_productos` valida permisos, evita reactivar productos ya activos, muestra mensajes con `message_user` y registra auditoria por logging.
-
+La accion `activar_productos` valida permisos con `request.user.has_perm('core.change_product')`, evita reactivar productos ya activos, muestra mensajes con `message_user` y registra auditoria mediante logging.
 
 ## Despliegue
 
-El proyecto incluye configuracion basica para despliegue:
+El proyecto esta preparado para despliegue en servicios como Render o PythonAnywhere.
 
-- `ALLOWED_HOSTS` permite localhost y dominios temporales de Ngrok.
-- `STATIC_ROOT` esta configurado para `collectstatic`.
-- `MEDIA_URL` y `MEDIA_ROOT` estan definidos para archivos subidos.
+Configuraciones incluidas:
 
-Comando recomendado antes de desplegar:
+- Variables de entorno con `.env` y `python-dotenv`.
+- `DJANGO_SECRET_KEY`, `DJANGO_DEBUG` y `DJANGO_ALLOWED_HOSTS`.
+- `STATIC_ROOT` para `collectstatic`.
+- WhiteNoise para servir archivos estaticos.
+- Gunicorn como servidor WSGI.
+- `build.sh` para automatizar instalacion, migraciones y archivos estaticos.
 
-```powershell
-python manage.py collectstatic
+Comandos relevantes para despliegue:
+
+```bash
+bash build.sh
+gunicorn workshop.wsgi:application
 ```
 
-Para una demostracion rapida se puede exponer el servidor local con Ngrok:
+En Render, configurar:
 
-```powershell
-python manage.py runserver
-ngrok http 8000
-```
+- Build Command: `bash build.sh`
+- Start Command: `gunicorn workshop.wsgi:application`
 
-Luego se comparte la URL publica generada por Ngrok.
+## Repositorio
+
+https://github.com/andresdelc21/workshop
+
+## Estado del proyecto
+
+El proyecto cumple con los requisitos principales de la entrega final: templates reutilizables, formularios, busquedas dinamicas, admin personalizado, usuarios, permisos, pruebas y preparacion para despliegue.

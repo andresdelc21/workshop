@@ -7,15 +7,19 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <div class="container">
-        {% include 'core/partials/header.html' %}
+        {% block header %}
+            {% include 'core/partials/header.html' %}
+        {% endblock %}
 
         <main>
             {% block content %}{% endblock %}
         </main>
 
-        {% include 'core/partials/footer.html' %}
+        {% block footer %}
+            {% include 'core/partials/footer.html' %}
+        {% endblock %}
     </div>
 
     <script src="{% static 'js/scripts.js' %}"></script>
