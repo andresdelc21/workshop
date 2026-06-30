@@ -1,23 +1,23 @@
-# Workshop Django
+# Taller de Django
 
 Proyecto final integrador desarrollado con Django. La aplicación permite trabajar con publicaciones, productos, formularios, usuarios, permisos y un panel de administración personalizado.
 
 ## Descripción del proyecto
 
-Workshop Django es una aplicación web pensada como práctica integradora del curso. Su objetivo es reunir en un mismo proyecto los conceptos principales de Django: herencia de templates, formularios, búsquedas dinámicas, autenticación, permisos, administración personalizada, pruebas automatizadas y preparación para despliegue.
+Workshop Django es una aplicación web pensada como práctica integradora del curso. Su objetivo es reunir en un mismo proyecto los conceptos principales de Django: herencia de plantillas, formularios, búsquedas dinámicas, autenticación, permisos, administración personalizada, pruebas automatizadas y preparación para despliegue.
 
-El proyecto está orientado a usuarios registrados y administradores. Los usuarios pueden acceder a páginas principales, autenticarse y consultar funcionalidades del sitio. El administrador puede gestionar publicaciones, productos, autores, libros, etiquetas, tarjetas resumen, usuarios y grupos desde el panel de administración.
+El proyecto está orientado a usuarios registrados y administradores. Los usuarios pueden acceder a las páginas principales, autenticarse y consultar funcionalidades del sitio. El administrador puede gestionar publicaciones, productos, autores, libros, etiquetas, tarjetas resumen, usuarios y grupos desde el panel de administración.
 
 ## Funcionalidades principales
 
-- Herencia de templates con `core/base.html`, bloques reutilizables, includes y partials.
-- CRUD completo de publicaciones con Class Based Views.
+- Herencia de plantillas con `core/base.html`, bloques reutilizables, includes y parciales.
+- CRUD completo de publicaciones con vistas basadas en clases.
 - Formularios con validaciones propias mediante Django Forms y ModelForms.
 - Búsqueda dinámica de productos con método GET y filtros ORM `icontains`.
-- Registro, login, logout y perfil de usuario.
+- Registro, inicio de sesión, cierre de sesión y perfil de usuario.
 - Control de acceso con permisos de Django.
 - Admin personalizado con `ModelAdmin`, filtros, búsqueda, edición rápida, inlines y acciones.
-- Context processors, template tags, filtros e inclusion tags reutilizables.
+- Procesadores de contexto, template tags, filtros e inclusion tags reutilizables.
 - Pruebas automatizadas para formularios, búsquedas y vistas protegidas.
 - Configuración preparada para despliegue con variables de entorno, WhiteNoise y Gunicorn.
 
@@ -31,27 +31,27 @@ El proyecto está orientado a usuarios registrados y administradores. Los usuari
 
 Clonar el repositorio:
 
-```powershell
+```bash
 git clone https://github.com/andresdelc21/workshop.git
 cd workshop
 ```
 
 Crear y activar un entorno virtual:
 
-```powershell
+```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
 Instalar dependencias:
 
-```powershell
+```bash
 pip install -r requirements.txt
 ```
 
 Crear el archivo de variables de entorno:
 
-```powershell
+```bash
 copy .env.example .env
 ```
 
@@ -61,58 +61,64 @@ Para desarrollo local se puede mantener `DJANGO_DEBUG=True`. Para producción, c
 
 Aplicar migraciones:
 
-```powershell
+```bash
 python manage.py migrate
 ```
 
 Cargar datos de ejemplo:
 
-```powershell
+```bash
 python manage.py seed_demo
 ```
 
 Crear un superusuario para ingresar al admin:
 
-```powershell
+```bash
 python manage.py createsuperuser
 ```
 
 ## Ejecutar el proyecto
 
-```powershell
+```bash
 python manage.py runserver
 ```
 
 URLs útiles en desarrollo:
 
-- Home: `http://127.0.0.1:8000/home/`
-- Publicaciones: `http://127.0.0.1:8000/posts/`
-- Crear publicación: `http://127.0.0.1:8000/post/nuevo/`
-- Productos: `http://127.0.0.1:8000/products/`
-- Contacto: `http://127.0.0.1:8000/contacto/`
-- Registro: `http://127.0.0.1:8000/registro/`
-- Login: `http://127.0.0.1:8000/accounts/login/`
-- Perfil: `http://127.0.0.1:8000/perfil/`
-- Vista protegida de usuarios: `http://127.0.0.1:8000/usuarios/lista/`
-- Admin: `http://127.0.0.1:8000/admin/`
+- Home: http://127.0.0.1:8000/home/
+- Publicaciones: http://127.0.0.1:8000/posts/
+- Crear publicación: http://127.0.0.1:8000/post/nuevo/
+- Productos: http://127.0.0.1:8000/products/
+- Contacto: http://127.0.0.1:8000/contacto/
+- Registro: http://127.0.0.1:8000/registro/
+- Login: http://127.0.0.1:8000/accounts/login/
+- Perfil: http://127.0.0.1:8000/perfil/
+- Vista protegida de usuarios: http://127.0.0.1:8000/usuarios/lista/
+- Admin: http://127.0.0.1:8000/admin/
+
+## URL pública
+
+Proyecto desplegado en Render:
+
+https://workshop-n9az.onrender.com
 
 ## Cómo probar funcionalidades
 
-1. Ingresar a `/registro/` y crear un usuario.
-2. Iniciar sesión desde `/accounts/login/`.
-3. Acceder al perfil desde `/perfil/`.
-4. Listar publicaciones desde `/posts/`.
-5. Crear una publicación desde `/post/nuevo/`.
-6. Ver, editar o eliminar publicaciones desde los botones del CRUD.
-7. Probar búsquedas en `/products/` usando nombre o categoría.
-8. Ingresar a `/admin/` con un superusuario para gestionar modelos.
-9. Revisar grupos y permisos desde el admin de Django.
+- Ingresar a `/registro/` y crear un usuario.
+- Iniciar sesión desde `/accounts/login/`.
+- Acceder al perfil desde `/perfil/`.
+- Listar publicaciones desde `/posts/`.
+- Crear una publicación desde `/post/nuevo/`.
+- Ver, editar o eliminar publicaciones desde los botones del CRUD.
+- Probar búsquedas en `/products/` usando nombre o categoría.
+- Ingresar a `/admin/` con un superusuario para gestionar modelos.
+- Revisar grupos y permisos desde el administrador de Django.
 
 ## Pruebas automatizadas
 
 Ejecutar:
 
-```powershell
+```bash
 python manage.py test
 ```
 
@@ -125,7 +131,7 @@ Las pruebas cubren:
 
 También se puede verificar la configuración general con:
 
-```powershell
+```bash
 python manage.py check
 ```
 
@@ -142,7 +148,7 @@ La acción `activar_productos` valida permisos con `request.user.has_perm('core.
 
 ## Despliegue
 
-El proyecto se encuentra preparado para despliegue en servicios como Render o PythonAnywhere.
+El proyecto se encuentra preparado para desplegarse en servicios como Render o PythonAnywhere.
 
 Configuraciones incluidas:
 
@@ -180,4 +186,4 @@ https://github.com/andresdelc21/workshop
 
 ## Estado del proyecto
 
-El proyecto cumple con los requisitos principales de la entrega final: templates reutilizables, formularios, búsquedas dinámicas, admin personalizado, usuarios, permisos, pruebas automatizadas y preparación para despliegue.
+El proyecto cumple con los requisitos principales de la entrega final: plantillas reutilizables, formularios, búsquedas dinámicas, admin personalizado, usuarios, permisos, pruebas automatizadas y preparación para despliegue.
